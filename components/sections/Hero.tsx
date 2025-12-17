@@ -236,25 +236,13 @@ export default function Hero() {
                   }}
                 />
 
-                {/* Placeholder text */}
-                <div className="text-center p-4 md:p-6 lg:p-8 relative z-10">
-                  <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto mb-2 md:mb-3 lg:mb-4 border-2 border-[var(--accent-primary)]/50 flex items-center justify-center">
-                    <span className="text-[var(--accent-primary)] font-mono text-xl md:text-2xl font-bold">R</span>
-                  </div>
-                  <p className="text-[var(--text-muted)] font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.3em]">
-                    Robot Image
-                  </p>
-                </div>
-
-                {/* Uncomment and replace with your image when ready:
                 <Image
-                  src="/path-to-your-image.jpg"
+                  src="/robots/hero-image.webp"
                   alt="Ragnarok Combat Robot"
                   fill
                   className="object-cover"
                   priority
                 />
-                */}
               </div>
 
               {/* Corner label */}
