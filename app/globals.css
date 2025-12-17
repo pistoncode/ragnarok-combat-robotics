@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background Colors */
+  --bg-primary: #000000;
+  --bg-secondary: #0A0A0A;
+
+  /* Accent Colors */
+  --accent-primary: #FF575F;
+  --accent-hover: #FF7A80;
+  --accent-glow: rgba(255, 87, 95, 0.5);
+
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1A1;
+  --text-muted: #666666;
+
+  /* Borders & Grid */
+  --border: #1A1A1A;
+  --grid-line: rgba(255, 87, 95, 0.06);
+  --grid-line-major: rgba(255, 87, 95, 0.10);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Background Colors */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+
+  /* Accent Colors */
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-glow: var(--accent-glow);
+
+  /* Text Colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Borders & Grid */
+  --color-border: var(--border);
+  --color-grid-line: var(--grid-line);
+
+  /* Fonts */
+  --font-sans: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* Prevent overscroll/bounce effect */
+  overscroll-behavior: none;
+  background-color: var(--bg-primary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter), sans-serif;
+  /* Prevent overscroll/bounce effect */
+  overscroll-behavior: none;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0),
+    radial-gradient(circle at 20% 50%, rgba(255, 87, 95, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(255, 87, 95, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 40% 20%, rgba(255, 87, 95, 0.08) 0%, transparent 60%);
+  background-size: 20px 20px, 100% 100%, 100% 100%, 100% 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Global cursor pointer for all interactive elements */
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+/* Animation classes for staggered entrances */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
 }
