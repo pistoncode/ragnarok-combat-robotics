@@ -13,7 +13,7 @@ export default function Footer() {
 
   const socialLinks = [
     {
-      href: "https://instagram.com/ragnarokcombat",
+      href: "https://instagram.com/fikri_hafizz",
       label: "Instagram",
       icon: Instagram,
     },
