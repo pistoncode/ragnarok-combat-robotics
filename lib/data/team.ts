@@ -19,7 +19,7 @@ export const teamMembers: TeamMember[] = [
     name: 'Fikri Hafizzadin Bin Abdul Hamid ',
     role: 'Lead Engineer & Pilot',
     bio: 'Fikri oversees the design and fabrication of our robot fleet while also piloting them in competition. With a background in mechanical engineering, he combines technical expertise with strategic driving to maximize our robots\' performance in the arena.',
-    imageUrl: '/team/fikri.jpg',
+    imageUrl: '/team/fikri.webp',
   },
   {
     id: 'hariiharahn-rajendran',

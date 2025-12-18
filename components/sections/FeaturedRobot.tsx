@@ -3,16 +3,23 @@
 import { useEffect, useRef, useState } from "react";
 import { WeightClassBadge } from "@/components/ui/Badge";
 import { robots } from "@/lib/data/robots";
-import { ArrowRight, Zap, Shield, Cog } from "lucide-react";
+import { ArrowRight, ArrowLeft, Zap, Shield, Cog } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function FeaturedRobot() {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const autoRotateRef = useRef<NodeJS.Timeout | null>(null);
 
   // Use the first robot as the featured one
   const featuredRobot = robots[0];
+
+  // Define available images for the featured robot
+  const robotImages = featuredRobot.imageUrl
+    ? [featuredRobot.imageUrl, "/robots/long-2.webp"]
+    : [];
 
   const winRate = Math.round(
     (featuredRobot.wins / (featuredRobot.wins + featuredRobot.losses)) * 100
@@ -24,6 +31,28 @@ export default function FeaturedRobot() {
       s.label.toLowerCase().includes(label.toLowerCase())
     );
     return spec?.value || "N/A";
+  };
+
+  // Navigation functions
+  const resetAutoRotation = () => {
+    if (autoRotateRef.current) {
+      clearInterval(autoRotateRef.current);
+    }
+    if (isVisible && robotImages.length > 1) {
+      autoRotateRef.current = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % robotImages.length);
+      }, 10000);
+    }
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % robotImages.length);
+    resetAutoRotation();
+  };
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + robotImages.length) % robotImages.length);
+    resetAutoRotation();
   };
 
   // Intersection Observer for scroll animations
@@ -43,6 +72,23 @@ export default function FeaturedRobot() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Auto-rotate images every 10 seconds
+  useEffect(() => {
+    if (!isVisible || robotImages.length <= 1) return;
+
+    const rotateImages = () => {
+      setCurrentImageIndex((prev) => (prev + 1) % robotImages.length);
+    };
+
+    autoRotateRef.current = setInterval(rotateImages, 10000);
+
+    return () => {
+      if (autoRotateRef.current) {
+        clearInterval(autoRotateRef.current);
+      }
+    };
+  }, [isVisible, robotImages.length]);
 
   return (
     <section ref={sectionRef} className="py-16 px-4 overflow-hidden">
@@ -239,10 +285,22 @@ export default function FeaturedRobot() {
                     : "opacity-0 -translate-y-12 lg:translate-y-0 lg:translate-x-12"
                 }`}
               >
-                <div className="relative w-full h-full min-h-[280px] md:min-h-[350px] lg:min-h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center overflow-hidden">
+                <div 
+                  className="relative w-full h-full min-h-[280px] md:min-h-[350px] lg:min-h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center overflow-hidden group"
+                  onMouseEnter={() => {
+                    // Pause auto-rotation on hover
+                    if (autoRotateRef.current) {
+                      clearInterval(autoRotateRef.current);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    // Resume auto-rotation on mouse leave
+                    resetAutoRotation();
+                  }}
+                >
                   {/* Grid overlay */}
                   <div
-                    className="absolute inset-0 opacity-10"
+                    className="absolute inset-0 opacity-10 z-10"
                     style={{
                       backgroundImage: `
                         linear-gradient(to right, var(--accent-primary) 1px, transparent 1px),
@@ -252,16 +310,33 @@ export default function FeaturedRobot() {
                     }}
                   />
 
-                  {featuredRobot.imageUrl ? (
-                    <Image
-                      src={featuredRobot.imageUrl}
-                      alt={featuredRobot.name}
-                      fill
-                      className={`object-cover transition-transform duration-1000 delay-500 ${
-                        isVisible ? "scale-100" : "scale-110"
-                      }`}
-                      priority
-                    />
+                  {robotImages.length > 0 ? (
+                    <div className="relative w-full h-full overflow-hidden">
+                      {robotImages.map((imageUrl, index) => {
+                        const isActive = index === currentImageIndex;
+                        
+                        return (
+                          <div
+                            key={index}
+                            className={`absolute inset-0 ${
+                              isActive ? "z-10" : "z-0"
+                            }`}
+                          >
+                            <Image
+                              src={imageUrl}
+                              alt={`${featuredRobot.name} - View ${index + 1}`}
+                              fill
+                              className={`object-cover transition-all duration-700 ${
+                                isVisible ? "scale-100" : "scale-110"
+                              } ${
+                                isActive ? "opacity-100" : "opacity-0"
+                              }`}
+                              priority={index === 0}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
                   ) : (
                     <div
                       className={`text-center p-8 relative z-10 transition-all duration-700 delay-600 ${
@@ -281,9 +356,53 @@ export default function FeaturedRobot() {
                     </div>
                   )}
 
+                  {/* Navigation Buttons */}
+                  {robotImages.length > 1 && (
+                    <>
+                      {/* Left Navigation Area */}
+                      <button
+                        onClick={goToPreviousImage}
+                        className="absolute left-0 top-0 bottom-0 w-1/2 z-30 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-100"
+                        aria-label="Previous image"
+                      >
+                        <ArrowLeft className="w-6 h-6 md:w-8 md:h-8 text-white hover:text-[var(--accent-primary)] transition-colors" />
+                      </button>
+
+                      {/* Right Navigation Area */}
+                      <button
+                        onClick={goToNextImage}
+                        className="absolute right-0 top-0 bottom-0 w-1/2 z-30 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:opacity-100"
+                        aria-label="Next image"
+                      >
+                        <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white hover:text-[var(--accent-primary)] transition-colors" />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Image Indicators */}
+                  {robotImages.length > 1 && (
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                      {robotImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            setCurrentImageIndex(index);
+                            resetAutoRotation();
+                          }}
+                          className={`transition-all duration-300 ${
+                            index === currentImageIndex
+                              ? "w-8 bg-[var(--accent-primary)]"
+                              : "w-2 bg-white/30 hover:bg-white/50"
+                          } h-2 border border-white/20`}
+                          aria-label={`View image ${index + 1} of ${robotImages.length}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+
                   {/* Corner label */}
                   <div
-                    className={`absolute bottom-4 right-4 bg-[var(--accent-primary)] px-3 py-1 transition-all duration-500 delay-1000 ${
+                    className={`absolute bottom-4 right-4 bg-[var(--accent-primary)] px-3 py-1 transition-all duration-500 delay-1000 z-20 ${
                       isVisible
                         ? "opacity-100 translate-x-0"
                         : "opacity-0 translate-x-4"

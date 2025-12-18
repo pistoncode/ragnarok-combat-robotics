@@ -64,7 +64,7 @@ export const robots: Robot[] = [
     archetype: 'Vertical Lifter',
     wins: 3,
     losses: 1,
-    weight: '12 lbs/6 kg',
+    weight: '3lbs/1.5kg',
     materials: ['6061 Aluminum', 'Hardened Steel', 'TPU'],
     description: 'REZE is a beetleweight vertical lifter designed to lift opponents into the air. This beetleweight is designed to be fast and agile, with a focus on lifting opponents into the air.',
     specs: [
