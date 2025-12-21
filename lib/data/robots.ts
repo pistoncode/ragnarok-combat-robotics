@@ -18,7 +18,7 @@ export const robots: Robot[] = [
     slug: 'long',
     name: 'Long (龙)',
     weightClass: 'Featherweight',
-    status: 'Active',
+    status: 'Retired',
     archetype: 'Vertical Spinner',
     wins: 12,
     losses: 0,
