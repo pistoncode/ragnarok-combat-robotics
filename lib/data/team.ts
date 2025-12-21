@@ -17,22 +17,22 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'fikri-hafizz',
     name: 'Fikri Hafizzadin Bin Abdul Hamid ',
-    role: 'Lead Engineer & Pilot',
-    bio: 'Fikri oversees the design and fabrication of our robot fleet while also piloting them in competition. With a background in mechanical engineering, he combines technical expertise with strategic driving to maximize our robots\' performance in the arena.',
+    role: 'Head Engineer & Lead Pilot',
+    bio: 'Oversees the design and fabrication of our robot fleet while also piloting them in competition. Combines technical expertise with strategic driving to maximize our robots\' performance in the arena.',
     imageUrl: '/team/fikri.webp',
   },
   {
     id: 'hariiharahn-rajendran',
     name: 'Hariiharahn P. Rajendran',
-    role: 'Mechanical & Electronics',
-    bio: 'Hariiharahn is a dedicated engineer with a passion for building robots. He is responsible for the design and fabrication of our robot fleet. He is also responsible for the electronics systems of our robots.',
+    role: 'Head of Business & Electrical Engineering',
+    bio: 'Manages business operations and leads the electrical engineering efforts for our robot fleet. Responsible for the electronics systems and power management of our robots.',
     imageUrl: '/team/harii.webp',
   },
   {
     id: 'willy-wong',
     name: 'Willy Wong',
-    role: 'Mechanical & Battery',
-    bio: 'Willy is a dedicated engineer with a passion for building robots. He is responsible for the design and fabrication of our robot fleet. He is also responsible for the battery systems of our robots.',
+    role: 'Head of Marketing & Mechanical Engineering',
+    bio: 'Leads marketing initiatives and oversees mechanical engineering for our robot fleet. Responsible for the design, fabrication, and structural integrity of our robots.',
     imageUrl: '/team/willy.jpg',
   }
 ];
