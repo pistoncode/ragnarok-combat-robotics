@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ArrowUpRight, ArrowRight } from "lucide-react";
 import { useFundingNotification } from "@/lib/contexts/FundingNotificationContext";
 
@@ -132,12 +133,20 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo/Brand with corner marks */}
             <div className="flex items-center gap-2 md:gap-3">
-              <Link href="/" className="relative group">
+              <Link href="/" className="relative group flex items-center gap-2 md:gap-3">
                 <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-lg md:text-xl font-black font-mono tracking-tighter text-white group-hover:text-[var(--accent-primary)] transition-colors px-1">
+                <div className="relative w-6 h-6 md:w-7 md:h-7 flex-shrink-0 -translate-y-0.5">
+                  <Image
+                    src="/icon.svg"
+                    alt="Ragnarok Logo"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-lg md:text-xl font-black font-mono tracking-tighter text-white group-hover:text-[var(--accent-primary)] transition-colors px-1 leading-none">
                   RAGNAROK
                 </span>
               </Link>
