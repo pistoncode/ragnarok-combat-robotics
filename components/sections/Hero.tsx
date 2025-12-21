@@ -224,23 +224,11 @@ export default function Hero() {
 
             <div className="relative border-2 border-white/20 bg-black/80 backdrop-blur-sm p-1.5 md:p-2 lg:p-3">
               <div className="relative w-full aspect-[16/10] md:aspect-[4/3] lg:aspect-square bg-[var(--bg-secondary)] flex items-center justify-center overflow-hidden">
-                {/* Grid overlay */}
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(to right, var(--accent-primary) 1px, transparent 1px),
-                      linear-gradient(to bottom, var(--accent-primary) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '30px 30px',
-                  }}
-                />
-
                 <Image
                   src="/robots/hero-image.webp"
                   alt="Ragnarok Combat Robot"
                   fill
-                  className="object-cover"
+                  className="object-cover relative z-10"
                   priority
                 />
               </div>

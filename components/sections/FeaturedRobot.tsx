@@ -298,18 +298,6 @@ export default function FeaturedRobot() {
                     resetAutoRotation();
                   }}
                 >
-                  {/* Grid overlay */}
-                  <div
-                    className="absolute inset-0 opacity-10 z-10"
-                    style={{
-                      backgroundImage: `
-                        linear-gradient(to right, var(--accent-primary) 1px, transparent 1px),
-                        linear-gradient(to bottom, var(--accent-primary) 1px, transparent 1px)
-                      `,
-                      backgroundSize: "40px 40px",
-                    }}
-                  />
-
                   {robotImages.length > 0 ? (
                     <div className="relative w-full h-full overflow-hidden">
                       {robotImages.map((imageUrl, index) => {

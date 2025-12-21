@@ -26,7 +26,7 @@ export const teamMembers: TeamMember[] = [
     name: 'Hariiharahn P. Rajendran',
     role: 'Mechanical & Electronics',
     bio: 'Hariiharahn is a dedicated engineer with a passion for building robots. He is responsible for the design and fabrication of our robot fleet. He is also responsible for the electronics systems of our robots.',
-    imageUrl: '/team/harii.jpg',
+    imageUrl: '/team/harii.webp',
   },
   {
     id: 'willy-wong',

@@ -153,7 +153,7 @@ export default function TeamPage() {
             {teamMembers.map((member: TeamMember, index: number) => (
               <div
                 key={member.id}
-                className="relative group"
+                className="relative group h-full"
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}
@@ -161,27 +161,15 @@ export default function TeamPage() {
                 {/* Offset background */}
                 <div className="absolute inset-0 translate-x-2 translate-y-2 border border-[var(--accent-primary)]/20 bg-[var(--accent-primary)]/5 transition-transform group-hover:translate-x-3 group-hover:translate-y-3" />
 
-                <div className="relative border border-white/20 bg-black/80 backdrop-blur-sm overflow-hidden transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                <div className="relative border border-white/20 bg-black/80 backdrop-blur-sm overflow-hidden transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 h-full flex flex-col">
                   {/* Image */}
-                  <div className="relative aspect-square overflow-hidden">
-                    {/* Grid overlay */}
-                    <div
-                      className="absolute inset-0 opacity-10 z-10"
-                      style={{
-                        backgroundImage: `
-                          linear-gradient(to right, var(--accent-primary) 1px, transparent 1px),
-                          linear-gradient(to bottom, var(--accent-primary) 1px, transparent 1px)
-                        `,
-                        backgroundSize: "30px 30px",
-                      }}
-                    />
-
+                  <div className="relative aspect-square overflow-hidden flex-shrink-0">
                     {member.imageUrl ? (
                       <Image
                         src={member.imageUrl}
                         alt={member.name}
                         fill
-                        className="object-cover"
+                        className="object-cover relative z-10"
                       />
                     ) : (
                       <div className="w-full h-full bg-[var(--bg-secondary)] flex items-center justify-center">
@@ -207,14 +195,14 @@ export default function TeamPage() {
                   </div>
 
                   {/* Member Info */}
-                  <div className="p-6">
+                  <div className="p-6 flex-1 flex flex-col">
                     <h3 className="text-xl font-black font-mono tracking-tight text-white mb-1">
                       {member.name}
                     </h3>
                     <p className="text-sm font-mono text-[var(--accent-primary)] uppercase tracking-wider mb-4">
                       {member.role}
                     </p>
-                    <p className="text-sm font-mono text-[var(--text-secondary)] leading-relaxed">
+                    <p className="text-sm font-mono text-[var(--text-secondary)] leading-relaxed flex-1">
                       {member.bio}
                     </p>
                   </div>
